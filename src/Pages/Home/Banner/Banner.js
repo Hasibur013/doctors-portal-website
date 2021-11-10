@@ -32,7 +32,7 @@ const Banner = () => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6} style={verticalCenter}>
-                        <img style={{width: 300}} src={chair} alt='' />
+                        <img style={{width: 500}} src={chair} alt='' />
                     </Grid>
                 </Grid>
             </Container>
