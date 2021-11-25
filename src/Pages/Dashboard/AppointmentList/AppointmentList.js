@@ -7,12 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
+
 
 const AppointmentList = ({date}) => {
     const { user } = useAuth()
     const [appointments, setAppointments] = useState([])
     useEffect(() => {
-        const url = `https://frozen-falls-71389.herokuapp.com/appointments?email=${user.email}&date=${date}`
+        const url = `https://frozen-falls-71389.herokuapp.com/appointments?email=${user.email}&date=${date.toLocaleDateString()}`
         fetch(url)
             .then(res => res.json())
             .then(data => setAppointments(data))
@@ -27,7 +29,8 @@ const AppointmentList = ({date}) => {
                             <TableCell>Name</TableCell>
                             <TableCell align="right">Time</TableCell>
                             <TableCell align="right">Service</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell align="right">Cost</TableCell>
+                            <TableCell align="right">Payment</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -41,7 +44,9 @@ const AppointmentList = ({date}) => {
                                 </TableCell>
                                 <TableCell align="right">{row.time}</TableCell>
                                 <TableCell align="right">{row.serviceName}</TableCell>
-                                <TableCell align="right">{}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
+                                <TableCell align="right">{row.payment? 'Paid' :
+                                 <Link to={`/dashboard/payment/${row._id}`}><button>Pay</button></Link>}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
